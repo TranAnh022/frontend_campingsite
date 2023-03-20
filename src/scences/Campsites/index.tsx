@@ -17,7 +17,7 @@ const Campsite = (props: Props) => {
 
   const getCamsites = async () => {
     const response = await fetch(
-      `/campsites`,
+      `${process.env.REACT_APP_BASE_URL}/campsites`,
       {
         credentials: "include",
         method: "GET",
