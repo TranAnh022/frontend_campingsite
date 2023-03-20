@@ -25,7 +25,7 @@ const Login = (props: Props) => {
     e.preventDefault();
 
     const loggedInResponse = await fetch(
-      `/login`,
+      `${process.env.REACT_APP_BASE_URL}/login`,
       {
         method: "POST",
         credentials: "include",

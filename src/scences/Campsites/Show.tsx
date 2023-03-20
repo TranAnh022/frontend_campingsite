@@ -28,7 +28,7 @@ const Show = (props: Props) => {
   );
   const getCampsite = async () => {
     const response = await fetch(
-      `/campsites/${id}`,
+      `${process.env.REACT_APP_BASE_URL}/campsites/${id}`,
       {
         method: "GET",
         credentials: "include",
@@ -53,7 +53,7 @@ const Show = (props: Props) => {
     e.preventDefault();
     try {
       await axios
-        .delete(`/campsites/${id}`, {
+        .delete(`${process.env.REACT_APP_BASE_URL}/campsites/${id}`, {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const Show = (props: Props) => {
     e.preventDefault();
     await axios
       .post(
-        `/campsites/${id}/reviews`,
+        `${process.env.REACT_APP_BASE_URL}/campsites/${id}/reviews`,
         {
           rating,
           comment,

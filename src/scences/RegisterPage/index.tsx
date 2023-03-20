@@ -19,7 +19,7 @@ const Register = (props: Props) => {
   const register = async (e: any) => {
     e.preventDefault();
     const registerResponse = await fetch(
-      `/register`,
+      `${process.env.REACT_APP_BASE_URL}/register`,
       {
         method: "POST",
         credentials: "include",

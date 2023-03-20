@@ -70,7 +70,7 @@ const Create = (props: Props) => {
       .then(async (validate: FormInput) => {
         try {
           axios
-            .post(`/campsites`, validate, {
+            .post(`${process.env.REACT_APP_BASE_URL}/campsites`, validate, {
               withCredentials: true, // Send cookies with request
               headers: {
                 "Content-Type": "multipart/form-data", // Set appropriate headers

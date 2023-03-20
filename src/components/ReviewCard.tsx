@@ -26,7 +26,7 @@ const ReviewCard = ({
   const handleDelete = async () => {
     await axios
       .delete(
-        `/campsites/${campsiteId}/reviews/${review._id}`,
+        `${process.env.REACT_APP_BASE_URL}/campsites/${campsiteId}/reviews/${review._id}`,
         {
           withCredentials: true,
         }

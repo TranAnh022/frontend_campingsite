@@ -36,7 +36,7 @@ const Edit = (props: Props) => {
 
   const getCampsite = async () => {
     const response = await fetch(
-      `/campsites/${id}`,
+      `${process.env.REACT_APP_BASE_URL}/campsites/${id}`,
       {
         method: "GET",
         credentials: "include",
@@ -97,7 +97,7 @@ const Edit = (props: Props) => {
         try {
           await axios
             .put(
-              `/campsites/${id}`,
+              `${process.env.REACT_APP_BASE_URL}/campsites/${id}`,
               validate,
               {
                 withCredentials: true,
