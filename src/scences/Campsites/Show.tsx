@@ -149,7 +149,7 @@ const Show = (props: Props) => {
         {/* Left */}
         <div className="col-md-6 col-11">
           <div className="card">
-            {id === campsite._id && (
+            {id === campsite?._id && (
               <Map
                 coordinates={{
                   longitude: campsite?.geometry?.coordinates[0],
@@ -213,7 +213,7 @@ const Show = (props: Props) => {
             </div>
           </div>
           {
-            campsite.reviews?.map((review) => (
+            campsite?.reviews?.map((review) => (
               <ReviewCard
                 key={review?._id}
                 review={review}
