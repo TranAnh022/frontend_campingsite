@@ -131,7 +131,7 @@ export default function ClusterMap({ campsites }: { campsites: any }) {
           key={`marker-${index}`}
           longitude={campsite.geometry.coordinates[0]}
           latitude={campsite.geometry.coordinates[1]}
-          style={{ opacity: "0" }}
+          style={{ opacity: "0", width: "2px", height: "2px", border: "50%" }}
           onClick={(e) => {
             // If we let the click event propagates to the map, it will immediately close the popup
             // with `closeOnClick: true`
