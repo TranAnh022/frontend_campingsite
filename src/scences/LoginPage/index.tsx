@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
 
 import Footer from "../../components/Footer";
-import { setLogin } from "../../state";
+import { setError, setLogin, setShow } from "../../state";
 
 type Props = {};
 
@@ -36,8 +36,8 @@ const Login = (props: Props) => {
       }
     ).then(async (response) => {
       if (!response.ok) {
-        setShowAlert(true);
-        setErrorMess("Invalid username or password");
+        dispatch(setShow())
+        dispatch(setError({errorMess:"Invalid username or password"}))
         return;
       }
       return response.json();
@@ -64,9 +64,6 @@ const Login = (props: Props) => {
         <div className="row justify-content-center">
           <div className="col-md-3">
             <div className="container mt-5 bg-black border-3 rounded-4 bg-opacity-50">
-              {showAlert && (
-                <Error error={errorMess} setShowAlert={setShowAlert} />
-              )}
               <div className="card-body py-2">
                 <h2 className="card-title m-3">Login</h2>
                 <hr></hr>

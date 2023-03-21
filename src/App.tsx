@@ -1,4 +1,3 @@
-
 import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Campsite from "./scences/Campsites";
@@ -7,15 +6,17 @@ import Edit from "./scences/Campsites/Edit";
 import Show from "./scences/Campsites/Show";
 import Login from "./scences/LoginPage";
 import Register from "./scences/RegisterPage";
-
+import Error from "./components/Error";
+import { useState } from "react";
 
 function App() {
-  const {mode}= useSelector((state:any)=>state)
+  const { mode, showAlert } = useSelector((state: any) => state);
   return (
     <div
-      className={`app bg-${
-        mode === "light" ? "light" : "black text-light"}`}
+      className={`app bg-${mode === "light" ? "light" : "black text-light"}`}
     >
+      {showAlert && <Error />}
+
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />

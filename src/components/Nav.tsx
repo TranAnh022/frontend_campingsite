@@ -2,13 +2,12 @@ import { useState } from "react";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setLogout, setModeLightDark } from "../state";
-
-type Props = {
-};
+import { setError, setLogout, setModeLightDark, setShow } from "../state";
+import Error from "./Error";
+type Props = {};
 
 const Nav = (props: Props) => {
-  const { mode } = useSelector((state:any)=>state)
+  const { mode } = useSelector((state: any) => state);
   const [isOpen, setIsOpen] = useState(false);
   const user = localStorage.getItem("user");
   const dispatch = useDispatch();
@@ -17,11 +16,20 @@ const Nav = (props: Props) => {
     dispatch(setModeLightDark());
   };
 
+  const handleCreate = () => {
+    if (!user) {
+      dispatch(setShow());
+      dispatch(setError({ errorMess: "You have to login first !!!" }));
+    } else {
+      navigate("/campsites/create");
+    }
+  };
+
   const handleLogout = () => {
     dispatch(setLogout());
     navigate("/");
   };
- 
+
   return (
     <div
       className={`container-fluid bg-${mode === "light" ? "white" : "dark"} `}
@@ -31,6 +39,7 @@ const Nav = (props: Props) => {
         <a className={`navbar-brand text-weight-bold fs-3`} href="#">
           Camping Site
         </a>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -55,7 +64,7 @@ const Nav = (props: Props) => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link fs-6" href="/campsites/create">
+              <a className="nav-link fs-6" onClick={handleCreate}>
                 Create Campsite
               </a>
             </li>

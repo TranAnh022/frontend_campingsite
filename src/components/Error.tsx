@@ -1,25 +1,30 @@
 import React from "react";
-
-type Props = {
-  error: string;
-  setShowAlert: (value: boolean) => void;
-};
+import { AiFillWarning } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { setShow } from "../state";
+type Props = {};
 
 const Error = (props: Props) => {
+  const dispatch = useDispatch();
+  const { errorMess } = useSelector((state: any) => state);
   return (
-    <div className="row mb-3">
+    <div className="toast-container position-fixed bottom-0 end-0 p-3">
       <div
-        className="alert alert-danger alert-dismissible fade show w-100"
-        role="alert"
+        className="toast"
+        style={{ display: "block" }}
+        data-autohide="true"
+        data-delay="3000"
       >
-        {props.error}
-        <button
-          type="button"
-          className="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-          onClick={() => props.setShowAlert(false)}
-        ></button>
+        <div className="toast-header ">
+          <AiFillWarning className="me-2" />
+          <strong className="me-auto">Camping Site warning</strong>
+          <button
+            type="button"
+            className="btn-close"
+            onClick={() => dispatch(setShow())}
+          ></button>
+        </div>
+        <div className="toast-body text-bg-danger">{errorMess}</div>
       </div>
     </div>
   );

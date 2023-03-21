@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
-import Error from "../../components/Error";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Nav from "../../components/Nav";
 import schema from "../../validationForm";
+import { setError, setShow } from "../../state";
 
 type Props = {};
 
@@ -22,8 +22,7 @@ const Edit = (props: Props) => {
     url: "",
     fileName: "",
   });
-  const [errorMess, setErrorMess] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
+
   const [camp, setCamp] = useState({
     title: "",
     location: "",
@@ -33,7 +32,7 @@ const Edit = (props: Props) => {
   });
   const user = localStorage.getItem("user");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const getCampsite = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/campsites/${id}`,
@@ -110,13 +109,13 @@ const Edit = (props: Props) => {
               navigate("/");
             });
         } catch (error: any) {
-          setShowAlert(true);
-          setErrorMess(error.message);
+          dispatch(setShow());
+          dispatch(setError({ errorMess: error.message }));
         }
       })
       .catch((err) => {
-        setShowAlert(true);
-        setErrorMess(err.message);
+        dispatch(setShow());
+        dispatch(setError({ errorMess: err.message }));
       });
   };
   return (
@@ -132,7 +131,6 @@ const Edit = (props: Props) => {
             mode === "light" ? "white" : "dark"
           } col-md-5 my-5 px-5 `}
         >
-          {showAlert && <Error error={errorMess} setShowAlert={setShowAlert} />}
           <h1 className="text-center my-3">Edit Camping Site</h1>
           {/* FORM  */}
           <form

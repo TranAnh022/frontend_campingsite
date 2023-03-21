@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
-import { setLogin } from "../../state";
+import { setError, setLogin, setShow } from "../../state";
 
 type Props = {};
 
@@ -10,8 +10,7 @@ const Register = (props: Props) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [errorMess, setErrorMess] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
+  const {errorMess} = useSelector((state:any)=>state)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,8 +30,8 @@ const Register = (props: Props) => {
     ).then(async (response) => {
       const responseJson = await response.json();
       if (!response.ok) {
-        setShowAlert(true);
-        setErrorMess(responseJson.message);
+        dispatch(setShow())
+        dispatch(setError({errorMess:responseJson.message}));
       }
       return responseJson;
     });
@@ -75,9 +74,6 @@ const Register = (props: Props) => {
               <b>Login</b>
             </a>{" "}
           </div>
-
-          {showAlert && <Error error={errorMess} setShowAlert={setShowAlert} />}
-
           <form className="d-flex flex-column gap-3 w-100" onSubmit={register}>
             <div className="row g-3 align-items-center">
               <div className="col-3">

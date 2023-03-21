@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Nav from "../../components/Nav";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import Error from "../../components/Error";
+
 import schema from "../../validationForm";
+import { setError, setShow } from "../../state";
 
 type Props = {};
 
@@ -13,8 +14,6 @@ const Create = (props: Props) => {
   const { mode } = useSelector((state: any) => state);
   const [img, setImg] = useState<null | File>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [errorMess, setErrorMess] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
   const [camp, setCamp] = useState({
     title: "",
     location: "",
@@ -23,6 +22,7 @@ const Create = (props: Props) => {
   });
   const user = localStorage.getItem("user");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!user) navigate("/");
   }, [mode]);
@@ -86,15 +86,16 @@ const Create = (props: Props) => {
               navigate("/");
             });
         } catch (error) {
-          setShowAlert(true);
-          setErrorMess("There is an error. Please check again !!!");
+          dispatch(setShow());
+          dispatch(
+            setError({ errorMess: "There is an error. Please try again !!!" })
+          );
         }
       })
       .catch((err) => {
-        setShowAlert(true);
-        setErrorMess(err.message);
+        dispatch(setShow());
+        dispatch(setError({ errorMess: err.message }));
       });
-
   };
   return (
     <div
@@ -114,7 +115,6 @@ const Create = (props: Props) => {
             mode === "light" ? "white" : "dark"
           } col-md-5 my-5 px-5`}
         >
-          {showAlert && <Error error={errorMess} setShowAlert={setShowAlert} />}
           <h1 className="text-center my-3">New Camping Site</h1>
           {/* FORM  */}
           <form
