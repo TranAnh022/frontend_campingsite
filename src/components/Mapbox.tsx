@@ -152,7 +152,7 @@ export default function ClusterMap({ campsites }: { campsites: any }) {
             <a href={`/campsites/${popupInfo._id}`} className="h6 link-primary">
               {popupInfo.title}
             </a>
-            <img className="w-100" src={popupInfo.images.url} />
+            <img className="w-100" src={popupInfo.images.url} alt="map" />
           </div>
         </Popup>
       )}
