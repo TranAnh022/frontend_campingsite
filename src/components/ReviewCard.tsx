@@ -21,7 +21,7 @@ const ReviewCard = ({
   }) => {
 
 
-  const { mode } = useSelector((state: any) => state);
+  const { mode,user } = useSelector((state: any) => state);
   const dispatch = useDispatch()
   const handleDelete = async () => {
     await axios
@@ -32,7 +32,9 @@ const ReviewCard = ({
         }
       )
       .then(() => dispatch(removeReview({ reviewId: review._id })));
+    window.location.reload();
   };
+
   return (
     <div
       className={`card mt-2 bg-${
@@ -42,9 +44,11 @@ const ReviewCard = ({
       <div className="card-body">
         <div className="d-flex justify-content-between">
           <Rating value={review?.rating} count={5} className="d-flex" />
-          <button className="btn btn-danger" onClick={handleDelete}>
-            delete
-          </button>
+          {author === user?.username && (
+            <button className="btn btn-danger" onClick={handleDelete}>
+              delete
+            </button>
+          )}
         </div>
         <h5 className="card-subtitle mt-1 text-uppercase">{author}</h5>
         <p className="card-text mt-1">{review?.body}</p>

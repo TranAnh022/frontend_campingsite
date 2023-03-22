@@ -7,11 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import ReviewCard from "../../components/ReviewCard";
 import Rating from "../../components/Rating";
-import {
-  addReview,
-  removeCampsite,
-  showCampsite,
-} from "../../state";
+import { addReview, removeCampsite, showCampsite } from "../../state";
 
 type Props = {};
 
@@ -41,13 +37,11 @@ const Show = (props: Props) => {
     dispatch(showCampsite({ campsite: responsed }));
   };
 
-
-
   useEffect(() => {
     getCampsite();
     const userLocal = JSON.parse(localStorage.getItem("user") as string);
     setUser(userLocal);
-  }, [id]);
+  }, []);
 
   const handleDelete = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -61,8 +55,7 @@ const Show = (props: Props) => {
         })
         .then(() => dispatch(removeCampsite({ campsite })));
       navigate("/");
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const handleReview = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -83,6 +76,7 @@ const Show = (props: Props) => {
       .then((respone) => dispatch(addReview({ review: respone.data.review })));
     setComment("");
     setRating(0);
+    window.location.reload();
   };
 
   return (
@@ -212,15 +206,14 @@ const Show = (props: Props) => {
               </div>
             </div>
           </div>
-          {
-            campsite?.reviews?.map((review) => (
-              <ReviewCard
-                key={review?._id}
-                review={review}
-                author={campsite?.author?.username}
-                campsiteId={campsite?._id}
-              />
-            ))}
+          {campsite?.reviews?.map((review) => (
+            <ReviewCard
+              key={review?._id}
+              review={review}
+              author={campsite?.author?.username}
+              campsiteId={campsite?._id}
+            />
+          ))}
         </div>
       </div>
     </div>

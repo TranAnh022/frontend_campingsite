@@ -95,7 +95,7 @@ export default function ClusterMap({ campsites }: { campsites: any }) {
       initialViewState={{
         latitude: 40.67,
         longitude: -103.59,
-        zoom: 2,
+        zoom: 1,
       }}
       mapStyle={`${
         mode === "light"

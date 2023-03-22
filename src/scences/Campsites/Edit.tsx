@@ -92,7 +92,6 @@ const Edit = (props: Props) => {
     schema
       .validate(Object.fromEntries(formData))
       .then(async (validate) => {
-        console.log(validate);
         try {
           await axios
             .put(
