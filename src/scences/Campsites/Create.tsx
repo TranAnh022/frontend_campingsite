@@ -69,32 +69,43 @@ const Create = (props: Props) => {
       .validate(Object.fromEntries(formData))
       .then(async (validate: FormInput) => {
         try {
-          axios
+          await axios
             .post(`${process.env.REACT_APP_BASE_URL}/campsites`, validate, {
               withCredentials: true, // Send cookies with request
               headers: {
                 "Content-Type": "multipart/form-data", // Set appropriate headers
               },
             })
-            .then(() => {
+            .then((response) => {
               setCamp({
                 title: "",
                 location: "",
                 price: 0,
                 description: "",
               });
-              navigate("/");
+              navigate(`/campsites/${response.data._id}`);
+              dispatch(setShow({ value: true }));
+              dispatch(
+                setError({
+                  errorMess:
+                    "Congratulations on successfully creating a new camping site",
+                  status: "success",
+                })
+              );
             });
         } catch (error) {
-          dispatch(setShow());
+          dispatch(setShow({ value: true }));
           dispatch(
-            setError({ errorMess: "There is an error. Please try again !!!" })
+            setError({
+              errorMess: "There is an error. Please try again !!!",
+              status: "danger",
+            })
           );
         }
       })
       .catch((err) => {
-        dispatch(setShow());
-        dispatch(setError({ errorMess: err.message }));
+        dispatch(setShow({ value: true }));
+        dispatch(setError({ errorMess: err.message, status: "danger" }));
       });
   };
   return (
@@ -134,6 +145,7 @@ const Create = (props: Props) => {
                 name="title"
                 value={camp.title}
                 onChange={handleInputChange}
+                placeholder="Forest Village"
                 required
               />
               <div className="invalid-feedback">Please provide a title</div>
@@ -150,6 +162,7 @@ const Create = (props: Props) => {
                 value={camp.location}
                 onChange={handleInputChange}
                 required
+                placeholder="28 vourikatu,Vaasa,Finland"
               />
               <div className="invalid-feedback">Please provide a location.</div>
             </div>
@@ -219,6 +232,8 @@ const Create = (props: Props) => {
                 value={camp.description}
                 onChange={handleInputChange}
                 required
+                rows={3}
+                placeholder="A beautiful camping site with a creek running through it"
               ></textarea>
             </div>
             <div className="my-4">

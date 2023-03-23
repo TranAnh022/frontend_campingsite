@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Campsite from "./scences/Campsites";
 import Create from "./scences/Campsites/Create";
@@ -7,16 +7,16 @@ import Show from "./scences/Campsites/Show";
 import Login from "./scences/LoginPage";
 import Register from "./scences/RegisterPage";
 import Error from "./components/Error";
-import { useState } from "react";
+import Password from "./scences/Password";
+
 
 function App() {
-  const { mode, showAlert } = useSelector((state: any) => state);
+  const { mode} = useSelector((state: any) => state);
   return (
     <div
       className={`app bg-${mode === "light" ? "light" : "black text-light"}`}
     >
-      {showAlert && <Error />}
-
+      <Error />
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -25,6 +25,7 @@ function App() {
           <Route path="/campsites/create" element={<Create />} />
           <Route path="/campsites/:id" element={<Show />} />
           <Route path="/campsites/:id/edit" element={<Edit />} />
+          <Route path="/password"element={<Password/>}/>
         </Routes>
       </BrowserRouter>
     </div>

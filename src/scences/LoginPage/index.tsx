@@ -36,8 +36,13 @@ const Login = (props: Props) => {
       }
     ).then(async (response) => {
       if (!response.ok) {
-        dispatch(setShow())
-        dispatch(setError({errorMess:"Invalid username or password"}))
+        dispatch(setShow({ value: true }));
+        dispatch(
+          setError({
+            errorMess: "Invalid username or password",
+            status: "danger",
+          })
+        );
         return;
       }
       return response.json();
@@ -97,12 +102,15 @@ const Login = (props: Props) => {
                   <button className="button p-1 rounded-4 bg-primary bg-opacity-55 text-light w-50 fs-5">
                     Login
                   </button>
-                  <div className="form-text mb-3 text-light my-2">
+                  <div className="form-text text-light my-2">
                     New to CampSite ?{" "}
                     <a href="/register" className="text-primary">
                       Create an account
                     </a>
                   </div>
+                  <a className="text-primary form-text mb-3" href="/password">
+                    Forgot your password ?
+                  </a>
                 </form>
               </div>
             </div>

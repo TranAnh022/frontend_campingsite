@@ -104,17 +104,25 @@ const Edit = (props: Props) => {
                 },
               }
             )
-            .then(() => {
-              navigate("/");
+            .then((response) => {
+              navigate(`/campsites/${response.data._id}`);
+              dispatch(setShow({ value: true }));
+              dispatch(
+                setError({
+                  errorMess:
+                    "Successfully updating camping site",
+                  status: "success",
+                })
+              );
             });
         } catch (error: any) {
-          dispatch(setShow());
-          dispatch(setError({ errorMess: error.message }));
+          dispatch(setShow({ value: true }));
+          dispatch(setError({ errorMess: error.message,status:"danger" }));
         }
       })
       .catch((err) => {
-        dispatch(setShow());
-        dispatch(setError({ errorMess: err.message }));
+        dispatch(setShow({ value: true }));
+        dispatch(setError({ errorMess: err.message, status: "danger" }));
       });
   };
   return (

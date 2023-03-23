@@ -18,8 +18,10 @@ const Nav = (props: Props) => {
 
   const handleCreate = () => {
     if (!user) {
-      dispatch(setShow());
-      dispatch(setError({ errorMess: "You have to login first !!!" }));
+      dispatch(setShow({ value: true }));
+      dispatch(
+        setError({ errorMess: "You have to login first !!!", status: "danger" })
+      );
     } else {
       navigate("/campsites/create");
     }

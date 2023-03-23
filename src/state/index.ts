@@ -9,8 +9,8 @@ interface AuthState {
   setShowAlert: (value: boolean) => void;
   errorMess: string;
   showAlert: boolean;
+  status: string;
 }
-
 const initialState: AuthState = {
   mode: "light",
   user: null,
@@ -20,6 +20,7 @@ const initialState: AuthState = {
   setShowAlert() {},
   errorMess: "",
   showAlert: false,
+  status:"danger",
 };
 export const authSlice = createSlice({
   name: "auth",
@@ -71,12 +72,19 @@ export const authSlice = createSlice({
         (review) => review._id !== action.payload.reviewId
       );
     },
-    setError: (state, action: PayloadAction<{ errorMess: string }>) => {
+    setError: (
+      state,
+      action: PayloadAction<{ errorMess: string; status: string }>
+    ) => {
       state.errorMess = action.payload.errorMess;
+      state.status = action.payload.status;
     },
-    setShow: (state) => {
-      state.setShowAlert(!state.showAlert);
-      state.showAlert = !state.showAlert;
+    setShow: (
+      state,
+      action: PayloadAction<{ value:boolean }>
+    ) => {
+      state.showAlert= action.payload.value
+      state.setShowAlert(action.payload.value);
     },
   },
 });

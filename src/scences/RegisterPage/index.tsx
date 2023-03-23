@@ -30,8 +30,10 @@ const Register = (props: Props) => {
     ).then(async (response) => {
       const responseJson = await response.json();
       if (!response.ok) {
-        dispatch(setShow())
-        dispatch(setError({errorMess:responseJson.message}));
+        dispatch(setShow({value:true}))
+        dispatch(
+          setError({ errorMess: responseJson.message, status: "danger"})
+        );
       }
       return responseJson;
     });
