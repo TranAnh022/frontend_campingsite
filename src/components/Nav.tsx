@@ -7,9 +7,8 @@ import Error from "./Error";
 type Props = {};
 
 const Nav = (props: Props) => {
-  const { mode } = useSelector((state: any) => state);
+  const { mode, user } = useSelector((state: any) => state);
   const [isOpen, setIsOpen] = useState(false);
-  const user = localStorage.getItem("user");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toggleLightDark = () => {
@@ -74,6 +73,9 @@ const Nav = (props: Props) => {
 
           {user ? (
             <ul className="navbar-nav text-center">
+              <li className="nav-item">
+                <b className="nav-link">{user.username}</b>
+              </li>
               <li className="nav-item">
                 <a className="nav-link fs-6" onClick={handleLogout}>
                   Logout
