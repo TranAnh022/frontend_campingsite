@@ -11,7 +11,7 @@ import Password from "./scences/Password";
 
 
 function App() {
-  const { mode} = useSelector((state: any) => state);
+  const { mode} = useSelector((state: RootState) => state.authMaterial);
   return (
     <div
       className={`app bg-${mode === "light" ? "light" : "black text-light"}`}

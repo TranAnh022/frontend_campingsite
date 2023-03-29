@@ -44,3 +44,19 @@ interface FormInput{
   price: number,
   description:string
 }
+
+interface RootState {
+  authMaterial: {
+    mode: string;
+    user: UserType;
+    campsites: Array<CampsiteType>;
+    campsite: CampsiteType | null;
+    reviews: Array<ReviewType>;
+  };
+  alertMaterial: {
+    setShowAlert: (value: boolean) => void;
+    errorMess: string;
+    showAlert: boolean;
+    status: string;
+  };
+}

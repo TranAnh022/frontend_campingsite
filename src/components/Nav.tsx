@@ -2,12 +2,12 @@ import { useState } from "react";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setError, setLogout, setModeLightDark, setShow } from "../state";
-import Error from "./Error";
+import { setLogout, setModeLightDark } from "../state";
+import { setError, setShow } from "../state/error";
 type Props = {};
 
 const Nav = (props: Props) => {
-  const { mode, user } = useSelector((state: any) => state);
+  const { mode, user } = useSelector((state: RootState) => state.authMaterial);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();

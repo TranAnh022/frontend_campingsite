@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Nav from "../../components/Nav";
 import schema from "../../validationForm";
-import { setError, setShow } from "../../state";
+import { setError, setShow } from "../../state/error";
 
 type Props = {};
 
@@ -16,7 +16,7 @@ const Edit = (props: Props) => {
   }, []);
 
   const { id } = useParams();
-  const { mode } = useSelector((state: any) => state);
+  const { mode, user } = useSelector((state: RootState) => state.authMaterial);
   const [image, setImage] = useState<File | null>(null);
   const [imageFetch, setImageFetch] = useState({
     url: "",
@@ -30,7 +30,7 @@ const Edit = (props: Props) => {
     description: "",
     _id: "",
   });
-  const user = localStorage.getItem("user");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const getCampsite = async () => {
@@ -109,15 +109,14 @@ const Edit = (props: Props) => {
               dispatch(setShow({ value: true }));
               dispatch(
                 setError({
-                  errorMess:
-                    "Successfully updating camping site",
+                  errorMess: "Successfully updating camping site",
                   status: "success",
                 })
               );
             });
         } catch (error: any) {
           dispatch(setShow({ value: true }));
-          dispatch(setError({ errorMess: error.message,status:"danger" }));
+          dispatch(setError({ errorMess: error.message, status: "danger" }));
         }
       })
       .catch((err) => {

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const CampsiteCard = (props: CampsiteType) => {
   const { _id, title, images, location, description } = props;
-  const { mode } = useSelector((state: any) => state);
+  const { mode } = useSelector((state: RootState) => state.authMaterial);
   return (
     <motion.div
       initial="hidden"

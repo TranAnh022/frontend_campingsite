@@ -21,7 +21,7 @@ const ReviewCard = ({
   }) => {
 
 
-  const { mode,user } = useSelector((state: any) => state);
+  const { mode, user } = useSelector((state: RootState) => state.authMaterial);
   const dispatch = useDispatch()
   const handleDelete = async () => {
     await axios

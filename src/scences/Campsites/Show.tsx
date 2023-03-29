@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Nav from "../../components/Nav";
@@ -12,16 +12,14 @@ import { addReview, removeCampsite, showCampsite } from "../../state";
 type Props = {};
 
 const Show = (props: Props) => {
-  const [user, setUser] = useState<UserType>();
+  const user = useSelector((state:RootState)=> state.authMaterial.user)
   const { id } = useParams();
-  const mode = useSelector(({ mode }: { mode: string }) => mode);
+  const mode = useSelector((state: RootState) => state.authMaterial.mode);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const campsite = useSelector(
-    ({ campsite }: { campsite: CampsiteType }) => campsite
-  );
+  const campsite = useSelector((state: any) => state.authMaterial.campsite);
   const getCampsite = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/campsites/${id}`,
@@ -39,8 +37,6 @@ const Show = (props: Props) => {
 
   useEffect(() => {
     getCampsite();
-    const userLocal = JSON.parse(localStorage.getItem("user") as string);
-    setUser(userLocal);
   }, []);
 
   const handleDelete = async (e: { preventDefault: () => void }) => {
@@ -196,7 +192,9 @@ const Show = (props: Props) => {
                           rows={3}
                           placeholder={"Leave a comment here ..."}
                           value={comment}
-                          onChange={(e: any) => setComment(e.target.value)}
+                          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                            setComment(e.target.value)
+                          }
                         />
                       </div>
                       <button className="btn btn-success mt-3">Send</button>
@@ -206,14 +204,16 @@ const Show = (props: Props) => {
               </div>
             </div>
           </div>
-          {campsite?.reviews?.map((review) => (
-            <ReviewCard
-              key={review?._id}
-              review={review}
-              author={campsite?.author?.username}
-              campsiteId={campsite?._id}
-            />
-          ))}
+          {campsite?.reviews?.map(
+            (review: { _id: string; body: string; rating: number }) => (
+              <ReviewCard
+                key={review?._id}
+                review={review}
+                author={campsite?.author?.username}
+                campsiteId={campsite?._id}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

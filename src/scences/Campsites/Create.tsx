@@ -6,12 +6,12 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import schema from "../../validationForm";
-import { setError, setShow } from "../../state";
+import { setError, setShow } from "../../state/error";
 
 type Props = {};
 
 const Create = (props: Props) => {
-  const { mode } = useSelector((state: any) => state);
+  const { mode,user } = useSelector((state: RootState) => state.authMaterial);
   const [img, setImg] = useState<null | File>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [camp, setCamp] = useState({
@@ -20,7 +20,6 @@ const Create = (props: Props) => {
     price: 0,
     description: "",
   });
-  const user = localStorage.getItem("user");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -170,21 +169,14 @@ const Create = (props: Props) => {
               <label htmlFor="formFileMultiple" className="form-label">
                 Upload Images
               </label>
-              <input
-                className="form-control"
-                accept=".jpg,.jpeg,.png"
-                type="file"
-                id="formFileMultiple"
-                name="image"
-                onChange={handleImageChange}
-              />
-              {imageUrl && (
+
+              {imageUrl ? (
                 <div className="my-3 d-flex justify-content-center align-items-center">
                   <img
                     src={imageUrl}
                     alt="Selected"
                     className="img-thumbnail"
-                    style={{ width: "10vw", height: "10vh" }}
+                    style={{ width: "10vw", height: "20vh" }}
                   />
                   <AiOutlineDelete
                     type="button"
@@ -195,6 +187,15 @@ const Create = (props: Props) => {
                     }}
                   />
                 </div>
+              ) : (
+                <input
+                  className="form-control"
+                  accept=".jpg,.jpeg,.png"
+                  type="file"
+                  id="formFileMultiple"
+                  name="image"
+                  onChange={handleImageChange}
+                />
               )}
             </div>
             <div className="mb-3">

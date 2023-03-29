@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
 
 import Footer from "../../components/Footer";
-import { setError, setLogin, setShow } from "../../state";
-
+import { setError, setShow } from "../../state/error";
+import { setLogin } from "../../state";
 type Props = {};
 
 const Login = (props: Props) => {
   const [password, setPassword] = useState("");
   const [username, setUserName] = useState("");
-  const [errorMess, setErrorMess] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const {user} = useSelector((state:RootState)=>state.authMaterial)
   useEffect(() => {
-    const user = localStorage.getItem("user");
+
     if (user) navigate("/");
   });
 

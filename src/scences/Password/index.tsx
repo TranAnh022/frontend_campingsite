@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav";
-import { setError, setShow } from "../../state";
+import { setError, setShow } from "../../state/error";
 
 type Props = {};
 
 const Password = (props: Props) => {
-  const { mode, user } = useSelector((state: any) => state);
+  const { mode, user } = useSelector((state: RootState) => state.authMaterial);
   const [email, setEmail] = useState<string>("");
   const [codeInput, setCodeInput] = useState<string>("");
   const dispatch = useDispatch();

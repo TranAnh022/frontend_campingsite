@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Error from "../../components/Error";
-import { setError, setLogin, setShow } from "../../state";
-
+import { setError,setShow } from "../../state/error";
+import { setLogin } from "../../state";
 type Props = {};
 
 const Register = (props: Props) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const {errorMess} = useSelector((state:any)=>state)
+  const { errorMess } = useSelector((state: RootState) => state.alertMaterial);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,9 +30,9 @@ const Register = (props: Props) => {
     ).then(async (response) => {
       const responseJson = await response.json();
       if (!response.ok) {
-        dispatch(setShow({value:true}))
+        dispatch(setShow({ value: true }));
         dispatch(
-          setError({ errorMess: responseJson.message, status: "danger"})
+          setError({ errorMess: responseJson.message, status: "danger" })
         );
       }
       return responseJson;

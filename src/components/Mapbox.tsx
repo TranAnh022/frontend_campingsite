@@ -69,8 +69,10 @@ type Feature = MapboxGeoJSONFeature & {
 export default function ClusterMap({ campsites }: { campsites: any }) {
   const mapRef = useRef<MapRef>(null);
   const [popupInfo, setPopupInfo] = useState<any>(null);
-  const campsitesInfo = useSelector((state: any) => state.campsites);
-  const mode = useSelector((state: any) => state.mode);
+  const campsitesInfo = useSelector(
+    (state: RootState) => state.authMaterial.campsites
+  );
+  const mode = useSelector((state: RootState) => state.authMaterial.mode);
 
   const onClick = (e: MapLayerMouseEvent) => {
     if (!e.features) return;
@@ -126,7 +128,7 @@ export default function ClusterMap({ campsites }: { campsites: any }) {
         <Layer {...clusterCountLayer} />
         <Layer {...unclusteredPointLayer} />
       </Source>
-      {campsitesInfo?.map((campsite: any, index: number) => (
+      {campsitesInfo?.map((campsite: CampsiteType, index: number) => (
         <Marker
           key={`marker-${index}`}
           longitude={campsite.geometry.coordinates[0]}

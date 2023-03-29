@@ -6,10 +6,6 @@ interface AuthState {
   campsites: Array<CampsiteType>;
   campsite: CampsiteType | null;
   reviews: Array<ReviewType>;
-  setShowAlert: (value: boolean) => void;
-  errorMess: string;
-  showAlert: boolean;
-  status: string;
 }
 const initialState: AuthState = {
   mode: "light",
@@ -17,10 +13,6 @@ const initialState: AuthState = {
   campsites: [],
   campsite: null,
   reviews: [],
-  setShowAlert() {},
-  errorMess: "",
-  showAlert: false,
-  status:"danger",
 };
 export const authSlice = createSlice({
   name: "auth",
@@ -30,11 +22,9 @@ export const authSlice = createSlice({
       state.mode = state.mode === "light" ? "dark" : "light";
     },
     setLogin: (state, action: PayloadAction<{ user: any }>) => {
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
       state.user = action.payload.user;
     },
     setLogout: (state) => {
-      localStorage.removeItem("user");
       state.user = null;
     },
     setCampsites: (
@@ -72,20 +62,6 @@ export const authSlice = createSlice({
         (review) => review._id !== action.payload.reviewId
       );
     },
-    setError: (
-      state,
-      action: PayloadAction<{ errorMess: string; status: string }>
-    ) => {
-      state.errorMess = action.payload.errorMess;
-      state.status = action.payload.status;
-    },
-    setShow: (
-      state,
-      action: PayloadAction<{ value:boolean }>
-    ) => {
-      state.showAlert= action.payload.value
-      state.setShowAlert(action.payload.value);
-    },
   },
 });
 
@@ -99,8 +75,6 @@ export const {
   removeReview,
   addReview,
   removeCampsite,
-  setError,
-  setShow
 } = authSlice.actions;
 
 export default authSlice.reducer;

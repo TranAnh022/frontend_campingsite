@@ -12,7 +12,9 @@ import Mapbox from "../../components/Mapbox";
 type Props = {};
 
 const Campsite = (props: Props) => {
-  const { campsites, mode } = useSelector((state: any) => state);
+  const { campsites, mode } = useSelector(
+    (state: RootState) => state.authMaterial
+  );
   const dispatch = useDispatch();
 
   const getCamsites = async () => {
