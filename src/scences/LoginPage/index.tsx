@@ -15,13 +15,11 @@ const Login = (props: Props) => {
   const navigate = useNavigate();
   const {user} = useSelector((state:RootState)=>state.authMaterial)
   useEffect(() => {
-
     if (user) navigate("/");
   });
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-
     const loggedInResponse = await fetch(
       `${process.env.REACT_APP_BASE_URL}/login`,
       {

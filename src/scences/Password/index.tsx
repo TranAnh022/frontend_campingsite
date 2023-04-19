@@ -19,7 +19,7 @@ const Password = (props: Props) => {
 
   useEffect(() => {
     if (user) navigate("/");
-  },[]);
+  }, []);
   const handleSendEmail = async (e: any) => {
     e.preventDefault();
     await axios
@@ -35,7 +35,9 @@ const Password = (props: Props) => {
       })
       .catch((error) => {
         dispatch(setShow({ value: true }));
-        dispatch(setError({ errorMess: error.message, status: "danger" }));
+        dispatch(
+          setError({ errorMess: error.response.data.message, status: "danger" })
+        );
       });
   };
   const handleCode = (e: any) => {
@@ -61,13 +63,14 @@ const Password = (props: Props) => {
         {
           email: email,
           password: password,
+          resetToken: codeResponse,
         },
         {
           withCredentials: true,
         }
       )
       .then((response) => {
-        navigate("/login")
+        navigate("/login");
         dispatch(setShow({ value: true }));
         dispatch(
           setError({ errorMess: response.data.message, status: "success" })
@@ -99,9 +102,9 @@ const Password = (props: Props) => {
                   onChange={(e) => setEmail(e.target.value)}
                   type="email"
                 />
-                <div className="btn btn-info p-3" onClick={handleSendEmail}>
+                <button className="btn btn-info p-3" onClick={handleSendEmail}>
                   send to reset the password
-                </div>
+                </button>
               </form>
             ) : (
               <form className="row g-3">
@@ -112,9 +115,9 @@ const Password = (props: Props) => {
                   onChange={(e) => setCodeInput(e.target.value)}
                   type="string"
                 />
-                <div className="btn btn-info p-3" onClick={handleCode}>
+                <button className="btn btn-info p-3" onClick={handleCode}>
                   send to verify
-                </div>
+                </button>
               </form>
             )}
           </div>
@@ -129,9 +132,9 @@ const Password = (props: Props) => {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
               />
-              <div className="btn btn-info p-3" onClick={handleReset}>
+              <button className="btn btn-info p-3" onClick={handleReset}>
                 send to reset
-              </div>
+              </button>
             </form>
           </div>
         )}

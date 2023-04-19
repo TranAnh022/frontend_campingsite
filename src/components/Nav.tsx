@@ -26,11 +26,6 @@ const Nav = (props: Props) => {
     }
   };
 
-  const handleLogout = () => {
-    dispatch(setLogout());
-    navigate("/");
-  };
-
   return (
     <div
       className={`container-fluid bg-${mode === "light" ? "white" : "dark"} `}
@@ -77,7 +72,13 @@ const Nav = (props: Props) => {
                 <b className="nav-link">{user.username}</b>
               </li>
               <li className="nav-item">
-                <a className="nav-link fs-6" onClick={handleLogout}>
+                <a
+                  className="nav-link fs-6"
+                  onClick={() => {
+                    dispatch(setLogout());
+                    navigate("/");
+                  }}
+                >
                   Logout
                 </a>
               </li>

@@ -18,11 +18,9 @@ const ReviewCard = ({
   review: Props;
   author: string;
   campsiteId: string;
-  }) => {
-
-
+}) => {
   const { mode, user } = useSelector((state: RootState) => state.authMaterial);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleDelete = async () => {
     await axios
       .delete(
@@ -32,7 +30,6 @@ const ReviewCard = ({
         }
       )
       .then(() => dispatch(removeReview({ reviewId: review._id })));
-    window.location.reload();
   };
 
   return (

@@ -11,7 +11,7 @@ import { setError, setShow } from "../../state/error";
 type Props = {};
 
 const Create = (props: Props) => {
-  const { mode,user } = useSelector((state: RootState) => state.authMaterial);
+  const { mode, user } = useSelector((state: RootState) => state.authMaterial);
   const [img, setImg] = useState<null | File>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [camp, setCamp] = useState({

@@ -12,4 +12,5 @@ const Footer = (props: Props) => {
   );
 }
 
+
 export default Footer

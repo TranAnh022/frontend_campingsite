@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Error from "../../components/Error";
-import { setError,setShow } from "../../state/error";
+import { setError, setShow } from "../../state/error";
 import { setLogin } from "../../state";
 type Props = {};
 
@@ -11,6 +10,7 @@ const Register = (props: Props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const { errorMess } = useSelector((state: RootState) => state.alertMaterial);
+  const { mode } = useSelector((state: RootState) => state.authMaterial);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ const Register = (props: Props) => {
           user: registerResponse.registerUser,
         })
       );
-      navigate("/campsites");
+      navigate("/");
     }
   };
   return (
@@ -67,7 +67,11 @@ const Register = (props: Props) => {
 
       {/* RIGHT */}
 
-      <div className="col col-sm-7 d-flex justify-content-center text-dark position-relative px-2">
+      <div
+        className={`col col-sm-7 d-flex justify-content-center position-relative text-dark px-2 ${
+          mode === "dark" && " bg-light"
+        } `}
+      >
         <div className="d-flex justify-content-center align-items-center  flex-column">
           <h1 className="display-4"> Join Camping Site</h1>
           <div className="mb-5">

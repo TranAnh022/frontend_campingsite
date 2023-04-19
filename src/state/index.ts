@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 interface AuthState {
   mode: string;
@@ -25,6 +26,7 @@ export const authSlice = createSlice({
       state.user = action.payload.user;
     },
     setLogout: (state) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/logout`)
       state.user = null;
     },
     setCampsites: (

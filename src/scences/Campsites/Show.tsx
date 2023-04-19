@@ -12,7 +12,7 @@ import { addReview, removeCampsite, showCampsite } from "../../state";
 type Props = {};
 
 const Show = (props: Props) => {
-  const user = useSelector((state:RootState)=> state.authMaterial.user)
+  const user = useSelector((state: RootState) => state.authMaterial.user);
   const { id } = useParams();
   const mode = useSelector((state: RootState) => state.authMaterial.mode);
   const [rating, setRating] = useState(0);
@@ -20,6 +20,7 @@ const Show = (props: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const campsite = useSelector((state: any) => state.authMaterial.campsite);
+  const review = useSelector((state: any) => state.authMaterial.reviews);
   const getCampsite = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/campsites/${id}`,
@@ -37,7 +38,7 @@ const Show = (props: Props) => {
 
   useEffect(() => {
     getCampsite();
-  }, []);
+  }, [review]);
 
   const handleDelete = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -72,9 +73,8 @@ const Show = (props: Props) => {
       .then((respone) => dispatch(addReview({ review: respone.data.review })));
     setComment("");
     setRating(0);
-    window.location.reload();
+    //window.location.reload();
   };
-
   return (
     <div
       className={`container-fuild d-flex flex-column bg-${
