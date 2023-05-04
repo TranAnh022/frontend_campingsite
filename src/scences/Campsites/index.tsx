@@ -8,7 +8,7 @@ import Nav from "../../components/Nav";
 import { setCampsites } from "../../state";
 import CampsiteCard from "../../components/CampsiteCard";
 import Mapbox from "../../components/Mapbox";
-
+import Thumbnail from "../../components/Thumbnail";
 type Props = {};
 
 const Campsite = (props: Props) => {
@@ -40,7 +40,12 @@ const Campsite = (props: Props) => {
     >
       <Nav />
 
-      <div className="container d-flex flex-column align-items-center mt-3">
+      <Thumbnail />
+      <div
+        className="container d-flex flex-column align-items-center mt-3"
+        id="main"
+        style={{ scrollBehavior: "smooth", transition: "all 400ms ease" }}
+      >
         <h1 className="text-center">Explore the Camping Site</h1>
         <Mapbox
           campsites={{
