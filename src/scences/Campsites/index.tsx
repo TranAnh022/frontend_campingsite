@@ -44,7 +44,6 @@ const Campsite = (props: Props) => {
       <div
         className="container d-flex flex-column align-items-center mt-3"
         id="main"
-        style={{ scrollBehavior: "smooth", transition: "all 400ms ease" }}
       >
         <h1 className="text-center">Explore the Camping Site</h1>
         <Mapbox

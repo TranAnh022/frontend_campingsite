@@ -34,7 +34,7 @@ const ReviewCard = ({
 
   return (
     <div
-      className={`card mt-2 bg-${
+      className={`card mt-1 bg-${
         mode === "light" ? "white" : "dark text-light"
       }`}
     >
@@ -47,8 +47,8 @@ const ReviewCard = ({
             </button>
           )}
         </div>
-        <h5 className="card-subtitle mt-1 text-uppercase">{author}</h5>
-        <p className="card-text mt-1">{review?.body}</p>
+        <h5 className="card-subtitle  text-uppercase">{author}</h5>
+        <p className="card-text">{review?.body}</p>
       </div>
     </div>
   );

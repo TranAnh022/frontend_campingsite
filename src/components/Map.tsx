@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactMapGL, { Marker, Popup, NavigationControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -9,11 +9,15 @@ type Props = {
   };
   title: string;
   location: string;
-  mode:string
+  mode: string;
 };
 
-export default function Map({ coordinates, title, location,mode }: Props) {
+export default function Map({ coordinates, title, location, mode }: Props) {
   const [showPopup, setShowPopup] = useState(true);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },)
+
 
   return (
     <ReactMapGL
@@ -23,10 +27,15 @@ export default function Map({ coordinates, title, location,mode }: Props) {
         zoom: 9,
       }}
       style={{
-        height: "300px",
+        height: "500px",
+        width: "100wv",
         borderRadius: "calc(0.375rem - 1px)",
       }}
-      mapStyle={`${mode === "light" ? "mapbox://styles/mapbox/streets-v9" : "mapbox://styles/mapbox/dark-v9" }`}
+      mapStyle={`${
+        mode === "light"
+          ? "mapbox://styles/mapbox/streets-v9"
+          : "mapbox://styles/mapbox/dark-v9"
+      }`}
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
       <NavigationControl />
@@ -46,4 +55,3 @@ export default function Map({ coordinates, title, location,mode }: Props) {
     </ReactMapGL>
   );
 }
-

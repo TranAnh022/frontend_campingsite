@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const CampsiteCard = (props: CampsiteType) => {
   const { _id, title, images, location, description } = props;
   const { mode } = useSelector((state: RootState) => state.authMaterial);
+  const navigate = useNavigate();
   return (
     <motion.div
       initial="hidden"
@@ -33,11 +35,19 @@ const CampsiteCard = (props: CampsiteType) => {
         <div className="card-title">{title}</div>
         <p className={`${mode === "dark" ? "" : "text-muted"}`}>{location}</p>
         <div className="card-text mb-3">
-          {description.length>125 ? description.slice(0, 125)+"..." : description}
-          </div>
-        <a className="btn btn-primary mb-3" href={`/campsites/${_id}`}>
+          {description.length > 125
+            ? description.slice(0, 125) + "..."
+            : description}
+        </div>
+        <button
+          className="btn btn-primary mb-3"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(`/campsites/${_id}`);
+          }}
+        >
           View {title}
-        </a>
+        </button>
       </div>
     </motion.div>
   );

@@ -17,7 +17,6 @@ function Thumbnail({}: Props) {
           <a
             href="#main"
             className="btn p-2 rounded bg-success w-50 my-2"
-            style={{ scrollBehavior: "smooth", transition: "all 400ms ease" }}
           >
             <div className="d-flex justify-content-center align-items-center gap-2 text-white ">
               <ImEarth />
