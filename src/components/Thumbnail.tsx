@@ -14,10 +14,7 @@ function Thumbnail({}: Props) {
         <div className="col-md-6 offset-md-3">
           <h1 className="display-4"> Find yourself outside. </h1>
           <h6>Discover and enjoy the beauty of nature.</h6>
-          <a
-            href="#main"
-            className="btn p-2 rounded bg-success w-50 my-2"
-          >
+          <a href="#main" className="btn p-2 rounded bg-success w-50 my-2">
             <div className="d-flex justify-content-center align-items-center gap-2 text-white ">
               <ImEarth />
               Explore Now
@@ -25,7 +22,7 @@ function Thumbnail({}: Props) {
           </a>
         </div>
         <div className="mt-3">
-          <Carousel interval={10000}>
+          <Carousel interval={5000}>
             <Carousel.Item>
               <img
                 className="d-block w-100 rounded-4"

@@ -86,7 +86,8 @@ const Password = (props: Props) => {
     <div
       className={`container-fuild d-flex flex-column bg-${
         mode === "light" ? "light" : "black text-light"
-      } h-100`}
+        }`}
+      style={{height:"100vh"}}
     >
       <Nav />
       <div className="container d-flex h-100 justify-content-center align-items-center flex-column">
