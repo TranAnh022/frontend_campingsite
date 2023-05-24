@@ -46,8 +46,9 @@ const Reviews = (props: Props) => {
       .then((respone) => dispatch(addReview({ review: respone.data.review })));
     setComment("");
     setRating(0);
-    //window.location.reload();
   };
+  console.log(campsite?.reviews);
+
   return (
     <div>
       <h3 className="">Reviews</h3>
@@ -102,11 +103,11 @@ const Reviews = (props: Props) => {
         </div>
       </div>
       {campsite?.reviews?.map(
-        (review: { _id: string; body: string; rating: number }) => (
+        (review: { _id: string; body: string; rating: number;author:any }) => (
           <ReviewCard
             key={review?._id}
             review={review}
-            author={campsite?.author?.username}
+            author={review?.author?.username}
             campsiteId={campsite?._id}
           />
         )
