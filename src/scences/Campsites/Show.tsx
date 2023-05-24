@@ -93,7 +93,8 @@ const Show = (props: Props) => {
                     : "dark text-light-emphasis border-top border-secondary "
                 }`}
               >
-                ${campsite?.price}/night
+                <b>$</b>
+                {campsite?.price}/night
               </li>
               <li
                 className={`list-group-item bg-${
